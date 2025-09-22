@@ -1,21 +1,21 @@
 package tinygo_pwm
 
-// SetDuty sets the duty cycle of a PWM signal given the pulse width and period width in microseconds.
+// SetDuty sets the duty cycle of a PWM signal given the pulse width and period width.
 //
 // Parameters:
 //
 // pwm: PWM to control its signal
 // channel: PWM channel
-// pulseMicroseconds: pulse width in microseconds
-// periodMicroseconds: period width in microseconds
-func SetDuty(pwm PWM, channel uint8, pulseMicroseconds, periodMicroseconds uint32) {
+// pulse: pulse width
+// period: period width
+func SetDuty(pwm PWM, channel uint8, pulse, period uint32) {
 	// Avoid division by zero
-	if periodMicroseconds == 0 {
+	if period == 0 {
 		return
 	}
 	
 	// Set the duty cycle
 	if pwm != nil {
-		pwm.Set(channel, uint32(float64(pwm.Top())*float64(pulseMicroseconds)/float64(periodMicroseconds)))
+		pwm.Set(channel, uint32(float64(pwm.Top())*float64(pulse)/float64(period)))
 	}
 }
